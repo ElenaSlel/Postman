@@ -1,0 +1,644 @@
+{
+	"info": {
+		"_postman_id": "387e0bd7-9e08-48d8-b2a2-dba46030d1f9",
+		"name": "Swagger от ЕИ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38767362",
+		"_collection_link": "https://warped-robot-661583.postman.co/workspace/1No-Workspace~b1627358-76f9-48dd-b0c4-a36a064438ef/collection/38767362-387e0bd7-9e08-48d8-b2a2-dba46030d1f9?action=share&source=collection_link&creator=38767362"
+	},
+	"item": [
+		{
+			"name": "pet",
+			"item": [
+				{
+					"name": "Добавить нового питомца",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 113,\r\n  \"category\": {\r\n    \"id\": 113,\r\n    \"name\": \"Duke\"\r\n  },\r\n  \"name\": \"doggie\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sw}}/pet",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Загрузка изображения питомца",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<style type=\"text/css\">\r",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+									"    .tftable tr {background-color:#ffffff;}\r",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+									"    .tftable tr:hover {background-color:#e0ffff;}\r",
+									"</style>\r",
+									"\r",
+									"<table class=\"tftable\" border=\"1\">\r",
+									"    <tr>\r",
+									"        <th>Code</th>\r",
+									"        <th>Type</th>\r",
+									"        <th>Message</th>\r",
+									"    </tr>\r",
+									"    <tr>\r",
+									"        <td>{{response.code}}</td>\r",
+									"        <td>{{response.type}}</td>\r",
+									"        <td>{{response.message}}</td>\r",
+									"    </tr>\r",
+									"</table>\r",
+									"`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    return { response: pm.response.json() }\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "additionalMetadata",
+									"value": "string",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1eff0428-ac5e-4eb0-b567-669de2a207ac"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{sw}}/pet/:id/uploadImage",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"pet",
+								":id",
+								"uploadImage"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "113"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Обновить существующего питомца",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 113,\r\n  \"category\": {\r\n    \"id\": 113,\r\n    \"name\": \"Duke\"\r\n  },\r\n  \"name\": \"doggie\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sw}}/pet",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск питомца по статусу",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sw}}/pet/findByStatus?status=available",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"pet",
+								"findByStatus"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "available"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск питомца по тегам",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sw}}/pet/findByTags?tags=tag1",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"pet",
+								"findByTags"
+							],
+							"query": [
+								{
+									"key": "tags",
+									"value": "tag1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск  питомца по идентификатору",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sw}}/pet/:id",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"pet",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "113"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Обновление данных о питомце",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Dukez",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "available",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{sw}}/pet/:id",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"pet",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "113"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление данных о питомце",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{sw}}/pet/:id",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"pet",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "113"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "store",
+			"item": [
+				{
+					"name": "Возвращает инвентарь питомца по статусу",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sw}}/store/inventory",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"store",
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Оформить заказ на питомца",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 148,\r\n  \"petId\":113,\r\n  \"quantity\": 1,\r\n  \"shipDate\": \"2024-10-10T15:03:19.902Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sw}}/store/order",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"store",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск заказа на покупку по идентификатору",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sw}}/store/order/:id",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"store",
+								"order",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "148"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удалить заказ на покупку по идентификатору",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{sw}}/store/order/:id",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"store",
+								"order",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "148"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Создать список пользователей",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"id\": 114,\r\n    \"username\": \"Lizi\",\r\n    \"firstName\": \"Elizabeth\",\r\n    \"lastName\": \"Windsor\",\r\n    \"email\": \"jh@gasda.com\",\r\n    \"password\": \"21041926\",\r\n    \"phone\": \"+23423423423\",\r\n    \"userStatus\": 5\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sw}}/user/createWithList",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"user",
+								"createWithList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создания списка пользователей 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"id\": 114,\r\n    \"username\": \"Lizi\",\r\n    \"firstName\": \"Elizabeth\",\r\n    \"lastName\": \"Windsor\",\r\n    \"email\": \"jh@gasda.com\",\r\n    \"password\": \"21041926\",\r\n    \"phone\": \"+23423423423\",\r\n    \"userStatus\": 5\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sw}}/user/createWithArray",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"user",
+								"createWithArray"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создать пользователя",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"id\": 114,\r\n    \"username\": \"Lizi\",\r\n    \"firstName\": \"Elizabeth\",\r\n    \"lastName\": \"Windsor\",\r\n    \"email\": \"jh@gasda.com\",\r\n    \"password\": \"21041926\",\r\n    \"phone\": \"+23423423423\",\r\n    \"userStatus\": 5\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sw}}/user/",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Найти пользователя",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sw}}/user/:username",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"user",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "Lizi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Обновление данных пользователя",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"id\": 114,\r\n    \"username\": \"N666\",\r\n    \"firstName\": \"Elizabeth\",\r\n    \"lastName\": \"Windsor\",\r\n    \"email\": \"jh@gasda.com\",\r\n    \"password\": \"21041926\",\r\n    \"phone\": \"+23423423423\",\r\n    \"userStatus\": 5\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sw}}/user/:username",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"user",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "Lizi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаления данных пользователя",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{sw}}/user/:username",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"user",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "N666"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Регистрация пользователя в системе",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sw}}/user/login?username=Liziaj&password=111",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"user",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Liziaj"
+								},
+								{
+									"key": "password",
+									"value": "111"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Выход из сеанса",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sw}}/user/logout",
+							"host": [
+								"{{sw}}"
+							],
+							"path": [
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "sw",
+			"value": "https://petstore.swagger.io/v2",
+			"type": "default"
+		}
+	]
+}
